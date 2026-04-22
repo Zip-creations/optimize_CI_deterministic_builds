@@ -1,9 +1,14 @@
-// For more information on writing tests, see
-// https://scalameta.org/munit/docs/getting-started.html
-class MySuite extends munit.FunSuite {
-  test("example test that succeeds") {
-    val obtained = 42
-    val expected = 42
-    assertEquals(obtained, expected)
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions._
+
+class ExampleTest {
+
+  @Test
+  def testNeg(): Unit = {
+    assertEquals(20, 20)
+  }
+  @Test
+  def testPos(): Unit = {
+    assertEquals(20, 10)
   }
 }

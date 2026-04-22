@@ -8,5 +8,8 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "org.scalameta" %% "munit" % "1.3.0" % Test
+    libraryDependencies ++= Seq(
+      "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test // using JUnit 5
+    ),
+    Test / testFrameworks += new TestFramework("org.junit.platform.sbt.JUnitPlatformFramework")
   )
