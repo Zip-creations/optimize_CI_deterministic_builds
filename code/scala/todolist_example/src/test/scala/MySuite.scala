@@ -1,14 +1,24 @@
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions._
+import todolist.*
+import scala.collection.mutable.Map
 
-class ExampleTest {
 
+class TestAddingItems {
   @Test
-  def testNeg(): Unit = {
-    assertEquals(20, 20)
+  def testTodo(): Unit = {
+    var testlist = TODOList("sample", Map.empty[Int, TODOItem])
+    var a = testlist.addItem(TODOItem("testItem1"))
+    assertEquals(testlist.items(1).content, "testItem1")
   }
+}
+
+class TestRemovingItems {
   @Test
-  def testPos(): Unit = {
-    assertEquals(20, 10)
+  def testTodo(): Unit = {
+    var testlist = TODOList("sample", Map.empty[Int, TODOItem])
+    var a = testlist.addItem(TODOItem("testItem1"))
+    testlist.removeItemByID(1)
+    assertFalse(testlist.items.contains(1))
   }
 }
