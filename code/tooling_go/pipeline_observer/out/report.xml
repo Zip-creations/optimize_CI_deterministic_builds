@@ -1,0 +1,14 @@
+<report name="Test Report" totalFailed="1" totalSkipped="1">
+  <testsuite name="TestAddingItems">
+    <testcase name="testTodo()" result="passed"></testcase>
+  </testsuite>
+  <testsuite name="TestCopy">
+    <testcase name="testCopy()" result="passed"></testcase>
+    <testcase name="testDisabled()" result="skipped"></testcase>
+    <testcase name="testEquality()" result="passed"></testcase>
+  </testsuite>
+  <testsuite name="TestRemovingItems">
+    <testcase name="testTodo()" result="passed"></testcase>
+    <testcase name="testPositive()" result="failed"></testcase>
+  </testsuite>
+</report>

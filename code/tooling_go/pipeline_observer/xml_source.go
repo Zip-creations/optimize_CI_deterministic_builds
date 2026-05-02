@@ -31,3 +31,7 @@ type Skipped struct {
 func (t Testcase) IsSkipped() bool {
     return t.Skipped != nil
 }
+
+func (t Testcase) HasFailed() bool {
+    return t.Failure != nil
+}

@@ -13,6 +13,8 @@ func main() {
 		return
 	}
 	content = filterForXML(content)
+	var allSuites []TestSuiteReport
+	var totalFailed, totalSkipped int = 0, 0
 	for _, entry := range content {
 		filePath := filepath.Join(path, entry.Name())
 		data, err := os.ReadFile(filePath)
@@ -27,10 +29,13 @@ func main() {
 			fmt.Println("Error unmarshaling XML: ", err)
 			continue
 		}
+		allSuites = append(allSuites, CreateTestSuiteReport(testsuite, &totalFailed, &totalSkipped))
 		for _, testcase := range testsuite.Testcases {
 			fmt.Println("Found:", testcase.IsSkipped())  // Debug
 		}
 	}
+	report := CreateReport("Test Report", totalFailed, totalSkipped, allSuites)
+	WriteXMLToFile(report, "./out/report.xml")
 }
 
 func filterForXML(files []os.DirEntry) []os.DirEntry {
@@ -41,4 +46,45 @@ func filterForXML(files []os.DirEntry) []os.DirEntry {
 		}
 	}
 	return xmlFiles
+}
+
+func CreateReport(name string, totalFailed, totalSkipped int, testSuites []TestSuiteReport) Report {
+	return Report{
+		Name: name,
+		TotalFailed: totalFailed,
+		TotalSkipped: totalSkipped,
+		TestSuites: testSuites,
+	}
+}
+
+func CreateTestSuiteReport(testsuite Testsuite, totalFailed *int, totalSkipped *int) TestSuiteReport {
+	var testCases []TestCaseReport
+	for _, testcase := range testsuite.Testcases {
+		var result TestStatus
+		if testcase.IsSkipped() {
+			*totalSkipped++
+			result = StatusSkipped
+		} else if testcase.HasFailed() {
+			*totalFailed++
+			result = StatusFailed
+		} else {
+			result = StatusPassed
+		}
+		testCases = append(testCases, TestCaseReport{
+			Name:   testcase.Name,
+			Result: result,
+		})
+	}
+	return TestSuiteReport{
+		Name:          testsuite.Name,
+		TestCases:     testCases,
+	}
+}
+
+func WriteXMLToFile(report Report, filePath string) error {
+	data, err := xml.MarshalIndent(report, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(filePath, data, 0644)
 }
