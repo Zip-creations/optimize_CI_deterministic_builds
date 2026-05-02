@@ -95,6 +95,7 @@ func CreateTestSuiteReport(testsuite Testsuite, totalFailed *int, totalSkipped *
 	}
 	return TestSuiteReport{
 		Name:          testsuite.Name,
+		Timestamp: testsuite.Timestamp,
 		TestCases:     testCases,
 	}
 }

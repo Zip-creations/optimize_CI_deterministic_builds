@@ -14,12 +14,13 @@ type Report struct {
 	Name string `xml:"name,attr"`
 	TotalFailed int `xml:"totalFailed,attr"`
 	TotalSkipped int `xml:"totalSkipped,attr"`
-	TestSuites []TestSuiteReport `xml:"testsuite"`
+	TestSuites []TestSuiteReport `xml:"testSuiteReport"`
 }
 
 type TestSuiteReport struct {
 	Name string `xml:"name,attr"`
-	TestCases []TestCaseReport `xml:"testcase"`
+	Timestamp string `xml:"timestamp,attr,omitempty"`
+	TestCases []TestCaseReport `xml:"testCaseReport"`
 }
 
 type TestCaseReport struct {

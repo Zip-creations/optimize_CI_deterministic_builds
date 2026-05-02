@@ -8,6 +8,7 @@ type Testsuites struct {
 
 type Testsuite struct {
 	Name      string     `xml:"name,attr"`
+	Timestamp string     `xml:"timestamp,attr,omitempty"`
 	Testcases []Testcase `xml:"testcase"`
 }
 
