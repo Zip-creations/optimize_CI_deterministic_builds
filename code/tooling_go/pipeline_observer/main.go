@@ -69,9 +69,10 @@ func CreateReport(name string, testSuites Testsuites) Report {
 	}
 	return Report{
 		Name: name,
-		TotalRun: totalRun,
-		TotalFailed: totalFailed,
-		TotalSkipped: totalSkipped,
+		TestsTotal: totalRun + totalSkipped,
+		TestsRun: totalRun,
+		// TestsFailed: totalFailed,
+		TestsSkipped: totalSkipped,
 		TestSuites: allSuites,
 	}
 }
@@ -102,9 +103,10 @@ func CreateTestSuiteReport(testsuite Testsuite, totalRun *int, totalFailed *int,
 	return TestSuiteReport{
 		Name:          testsuite.Name,
 		Timestamp: testsuite.Timestamp,
-		TotalRunSuite: totalRunSuite,
-		TotalFailedSuite: totalFailedSuite,
-		TotalSkippedSuite: totalSkippedSuite,
+		TestsTotal: totalRunSuite + totalSkippedSuite,
+		TestsRun: totalRunSuite,
+		// TestsFailedSuite: totalFailedSuite,
+		TestsSkipped: totalSkippedSuite,
 		TestCases:     testCases,
 	}
 }
