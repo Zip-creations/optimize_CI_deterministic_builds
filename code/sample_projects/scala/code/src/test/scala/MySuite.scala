@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Disabled
 import todolist.*
 import scala.collection.mutable.Map
 
-
+// @Suite?
 class TestAddingItems {
   @Test
   def testTodo(): Unit = {

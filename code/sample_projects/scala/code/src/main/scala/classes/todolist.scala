@@ -1,7 +1,6 @@
 package todolist
 import scala.collection.mutable.Map
 
-// @Suite?
 class ToDoList(
   var author: String,
   var items: Map[Int, ToDoItem]
@@ -19,17 +18,6 @@ class ToDoList(
   
   def removeAllItems = () =>
     items.clear()
-  
-  // def removeDuplicateItems = () =>
-  //   var seen = Set.empty[String]
-  //   items = items.filter { case (id, item) =>
-  //     if (seen.contains(item.content)) {
-  //       false
-  //     } else {
-  //       seen += item.content
-  //       true
-  //     }
-  //   }
 
   def getAuthor = () =>
     author
