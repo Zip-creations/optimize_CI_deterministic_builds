@@ -1,8 +1,3 @@
-target/
-.scala-build/
-.bsp/
-.metals/
-.bloop/
 .direnv/
 result
 result-*
@@ -12,3 +7,13 @@ result-*
 *.log
 *~
 *.swp
+
+#scala
+target/
+.scala-build/
+.bsp/
+.metals/
+.bloop/
+
+#python
+__pycache__/

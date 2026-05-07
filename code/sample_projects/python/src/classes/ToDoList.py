@@ -6,7 +6,7 @@ class ToDoList:
     def __init__(self, author: str):
         self.author = author
         self.items: dict[int, ToDoItem] = {}
-        self.id = 0
+        self.id = -1
 
     def newID(self):
         self.id += 1

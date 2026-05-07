@@ -1,7 +1,12 @@
-from classes.ToDoList import ToDoList
-from junit_xml import TestCase, TestSuite
+from classes.ToDoList import ToDoList, ToDoItem
 
-# replace with pytest (with junit xml)
-test_cases = [TestCase('Test1', 'some.class.name', 123.345, 'I am stdout!', 'I am stderr!')]
-ts = TestSuite("my test suite", test_cases)
-print(TestSuite.to_xml_string([ts]))
+def test_add_item():
+    todo_list = ToDoList("Alice")
+    item1 = ToDoItem("Item 1")
+    item2 = ToDoItem("Item 2")
+    todo_list.addItem(item1)
+    todo_list.addItem(item2)
+    print(todo_list.items)
+    assert len(todo_list.items) == 2
+    assert todo_list.items[0] == item1
+    assert todo_list.items[1] == item2
