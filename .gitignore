@@ -1,12 +1,13 @@
+*~
+*.swp
 .direnv/
 result
 result-*
+*.log
+
+#vs code
 .vscode/
 .idea/
-*.class
-*.log
-*~
-*.swp
 
 #scala
 target/
@@ -14,6 +15,9 @@ target/
 .bsp/
 .metals/
 .bloop/
+*.class
 
 #python
 __pycache__/
+*.pyc
+.pytest_cache/
