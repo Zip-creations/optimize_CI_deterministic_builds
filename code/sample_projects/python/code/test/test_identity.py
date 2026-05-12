@@ -1,8 +1,8 @@
 from classes.ToDoList import ToDoList, ToDoItem
 
 def test_copy():
-    todo_list1 = ToDoList("Alice")
-    todo_list2 = ToDoList("Alice")
+    todo_list1 = ToDoList()
+    todo_list2 = ToDoList()
     todo_list3 = todo_list1.copy()
     assert(todo_list1 == todo_list2)
     assert(todo_list1 == todo_list3)

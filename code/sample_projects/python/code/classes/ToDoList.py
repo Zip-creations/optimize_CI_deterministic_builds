@@ -8,8 +8,7 @@ class ToDoItem:
         return self.item == other.item
 
 class ToDoList:
-    def __init__(self, author: str):
-        self.author = author
+    def __init__(self):
         self.items: dict[int, ToDoItem] = {}
         self.id = -1
 
@@ -24,7 +23,7 @@ class ToDoList:
         del self.items[id]
     
     def copy(self):
-        new_list = ToDoList(self.author)
+        new_list = ToDoList()
         for item in self.items.values():
             new_list.addItem(item)
         return new_list
@@ -32,7 +31,7 @@ class ToDoList:
     def __eq__(self, other):
         if not isinstance(other, ToDoList):
             return NotImplemented
-        return self.author == other.author and self.items == other.items
+        return self.items == other.items
     
     def __ne__(self, other):
         if not isinstance(other, ToDoList):

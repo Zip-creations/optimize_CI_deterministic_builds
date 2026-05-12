@@ -2,7 +2,6 @@ package todolist
 import scala.collection.mutable.Map
 
 class ToDoList(
-  var author: String,
   var items: Map[Int, ToDoItem]
 ) {
   var id = 0
@@ -18,30 +17,24 @@ class ToDoList(
   
   def removeAllItems = () =>
     items.clear()
-
-  def getAuthor = () =>
-    author
   
   def getItems = () =>
     items.values.toList
   
-  def getSize = () =>
-    items.size
-  
   def copy = () =>
-    ToDoList(author, items.clone())
+    ToDoList(items.clone())
   
   override def equals(obj: Any): Boolean = 
     obj match {
       case other: ToDoList =>
-        this.author == other.author && this.items == other.items
+        this.items == other.items
       case _ => false
     }
 }
 
 object ToDoList {
   def empty() = 
-    ToDoList("", Map.empty[Int, ToDoItem])
+    ToDoList(Map.empty[Int, ToDoItem])
 }
 
 case class ToDoItem (

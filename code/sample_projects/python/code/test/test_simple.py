@@ -2,7 +2,7 @@ from classes.ToDoList import ToDoList, ToDoItem
 import pytest
 
 def test_add_item(record_property):
-    todo_list = ToDoList("Alice")
+    todo_list = ToDoList()
     item1 = ToDoItem("Item 1")
     item2 = ToDoItem("Item 2")
     todo_list.addItem(item1)
@@ -18,7 +18,7 @@ def test_add_item(record_property):
     # </properties>
 
 def test_removing_items():
-    todo_list = ToDoList("Bob")
+    todo_list = ToDoList()
     item1 = ToDoItem("Item 1")
     item2 = ToDoItem("Item 2")
     todo_list.addItem(item1)

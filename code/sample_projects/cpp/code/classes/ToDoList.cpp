@@ -18,7 +18,7 @@ public:
         items.emplace(nextID, item);
         nextID++;
     };
-    void removeItem(int id) {
+    void removeItemByID(int id) {
         items.erase(id);
     };
     ToDoItem getItemByID(int id) const {

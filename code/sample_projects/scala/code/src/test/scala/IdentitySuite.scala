@@ -7,7 +7,6 @@ import scala.collection.mutable.Map
 class TestCopy {
   @Test
   def testEquality(): Unit = {
-    println("Pos4")
     var list1 = ToDoList.empty()
     var list2 = ToDoList.empty()
     var list3 = list1.copy()
@@ -18,7 +17,6 @@ class TestCopy {
 
   @Test
   def testCopy(): Unit = {
-    println("Pos5")
     var list1 = ToDoList.empty()
     var list2 = list1.copy()
     assertEquals(list1, list2)
@@ -33,7 +31,6 @@ class TestCopy {
   @Test
   @Disabled("This test will be skipped, to show how the pipeline tooling is handling this")
   def testDisabled(): Unit = {
-    println("Pos6")
     var list1 = ToDoList.empty()
     var list2 = list1.copy()
     assertEquals(list1, list2)
