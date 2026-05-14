@@ -11,7 +11,14 @@ echo '<testsuite>'
 
 while IFS= read -r line; do
     [[ "$line" != *"::"* ]] && continue
-    echo "    <testcase qualifiedName=\"$line\"/>"
+
+    file="${line%%::*}"   # test/test_simple.py
+    test="${line##*::}"   # test_skipping
+
+    module="${file%.py}"          # test/test_simple
+    classname="${module//\//.}"   # test.test_simple
+
+    echo "    <testcase classname=\"$classname\" name=\"$test\" qualifiedName=\"$line\"/>"
 done <<< "$OUTPUT"
 
 echo '</testsuite>'

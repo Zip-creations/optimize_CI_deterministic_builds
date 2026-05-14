@@ -1,4 +1,4 @@
-<report name="Test Report" testsTotal="7" testsRun="6" testsSkipped="1">
+<report name="Test Report" testsTotal="12" testsRun="10" testsSkipped="2">
   <testSuiteReport name="TestAddingItems" timestamp="2026-05-01T15:23:42" testsTotal="1" testsRun="1" testsSkipped="0">
     <testCaseReport name="testTodo()" result="passed"></testCaseReport>
   </testSuiteReport>
@@ -11,5 +11,10 @@
     <testCaseReport name="testTodo()" result="passed"></testCaseReport>
     <testCaseReport name="testPositive()" result="failed"></testCaseReport>
   </testSuiteReport>
-  <testSuiteReport name="pytest tests" testsTotal="0" testsRun="0" testsSkipped="0"></testSuiteReport>
+  <testSuiteReport name="pytest" timestamp="2026-05-12T13:36:20.355444+02:00" testsTotal="5" testsRun="4" testsSkipped="1">
+    <testCaseReport name="test_add_item" result="passed"></testCaseReport>
+    <testCaseReport name="test_removing_items" result="passed"></testCaseReport>
+    <testCaseReport name="test_skipping" result="skipped"></testCaseReport>
+    <testCaseReport name="test_copy" result="passed"></testCaseReport>
+  </testSuiteReport>
 </report>

@@ -1,4 +1,4 @@
-package main
+package datatypes
 
 // TODO: The XML structure can have two different root elements: <testsuites> and <testsuite>. Tool should be able to process both.
 // Currently, <testsuite> is assumed as root
