@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(output, "\n")  // Debug
 
 	// Read all tests in the JUnit XML output of the last run (if existing)
-	allSuites, err := ReadTestSuites("./examples/jUnit_XML")  // TODO: Read from config.json
+	allSuites, err := ReadJUnitTestSuites("./examples/jUnit_XML")  // TODO: Read from config.json
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -30,7 +30,7 @@ func main() {
 	fmt.Println("Successfully created report: \n", report)  // Debug
 }
 
-func RunTestDiscoveryScript(path string) (dt.Testsuite, error) {
+func RunTestDiscoveryScript(path string) (dt.DiscoveryTestsuite, error) {
 	cmd := exec.Command("bash", path)
 	var out bytes.Buffer
 	var stderr bytes.Buffer
@@ -39,13 +39,21 @@ func RunTestDiscoveryScript(path string) (dt.Testsuite, error) {
 
 	err := cmd.Run()
 	if err != nil {
-		return dt.Testsuite{}, fmt.Errorf("Error executing test discovery script: %w\n%s", err, stderr.String())
+		return dt.DiscoveryTestsuite{}, fmt.Errorf("Error executing test discovery script: %w\n%s", err, stderr.String())
 	}
-	return XMLtoTestSuite([]byte(out.String()), &dt.Testsuite{})
+	return XMLtoDiscoveryTestsuite([]byte(out.String()), &dt.DiscoveryTestsuite{})
 }
 
-func ReadTestSuites(path string) (dt.Testsuites, error) {
-	var allSuites dt.Testsuites
+func XMLtoDiscoveryTestsuite(data []byte, suite *dt.DiscoveryTestsuite) (dt.DiscoveryTestsuite, error) {
+	err := xml.Unmarshal(data, suite)
+	if err != nil {
+		return *suite, fmt.Errorf("Error while unmarshalling user generated XML:\n %w", err)
+	}
+	return *suite, err
+}
+
+func ReadJUnitTestSuites(path string) (dt.JUnitTestsuites, error) {
+	var allSuites dt.JUnitTestsuites
 	content, err := os.ReadDir(path)
 	if err != nil {
 		return allSuites, fmt.Errorf("Error reading directory:\n %s\n %w", path, err)
@@ -53,7 +61,7 @@ func ReadTestSuites(path string) (dt.Testsuites, error) {
 	content = filterForXML(content)
 	for _, entry := range content {
 		filePath := filepath.Join(path, entry.Name())
-		testSuit, err := ReadTestSuite(filePath)
+		testSuit, err := ReadJUnitTestSuite(filePath)
 		if err != nil {
 			fmt.Println(err)  // TODO: log error somehow
 			continue  // If one file is broken: skip and continue with the others
@@ -63,16 +71,16 @@ func ReadTestSuites(path string) (dt.Testsuites, error) {
 	return allSuites, nil
 }
 
-func ReadTestSuite(filePath string) (dt.Testsuite, error) {
-	var testsuite dt.Testsuite
+func ReadJUnitTestSuite(filePath string) (dt.JUnitTestsuite, error) {
+	var testsuite dt.JUnitTestsuite
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return testsuite, fmt.Errorf("Error while reading file:\n %s\n %w", filePath, err)
 	}
-	return XMLtoTestSuite(data, &testsuite)
+	return XMLtoJUnitTestSuite(data, &testsuite)
 }
 
-func XMLtoTestSuite(data []byte, suite *dt.Testsuite) (dt.Testsuite, error) {
+func XMLtoJUnitTestSuite(data []byte, suite *dt.JUnitTestsuite) (dt.JUnitTestsuite, error) {
 	err := xml.Unmarshal(data, suite)
 	if err != nil {
 		return *suite, fmt.Errorf("Error while unmarshalling TestSuite XML:\n %w", err)
@@ -90,7 +98,9 @@ func filterForXML(files []os.DirEntry) []os.DirEntry {
 	return xmlFiles
 }
 
-func CreateReport(name string, testSuites dt.Testsuites) Report {
+// ~~~~~~~~~
+
+func CreateReport(name string, testSuites dt.JUnitTestsuites) Report {
 	var totalRun, totalFailed, totalSkipped int = 0, 0, 0
 	allSuites := []TestSuiteReport{}
 	for _, testsuite := range testSuites.Testsuites {
@@ -106,7 +116,7 @@ func CreateReport(name string, testSuites dt.Testsuites) Report {
 	}
 }
 
-func CreateTestSuiteReport(testsuite dt.Testsuite, totalRun *int, totalFailed *int, totalSkipped *int) TestSuiteReport {
+func CreateTestSuiteReport(testsuite dt.JUnitTestsuite, totalRun *int, totalFailed *int, totalSkipped *int) TestSuiteReport {
 	var testCases []TestCaseReport
 	var totalRunSuite, totalFailedSuite, totalSkippedSuite int = 0, 0, 0
 	for _, testcase := range testsuite.Testcases {
