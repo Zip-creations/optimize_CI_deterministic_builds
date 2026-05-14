@@ -1,7 +1,7 @@
 package datatypes
 
 
-// TODO: The XML structure can have two different root elements: <testsuites> and <testsuite>. Tool should be able to process both.
+// TODO: The XML structure can have two different root elements: <testsuites> and <testsuite>. Tool must be able to process both.
 // Currently, <testsuite> is assumed as root
 type JUnitTestsuites struct {
 	Testsuites []JUnitTestsuite `xml:"testsuites"`
@@ -18,12 +18,4 @@ type JUnitTestcase struct {
 	Name string `xml:"name,attr,omitempty"`
 	Failure *Failure `xml:"failure,omitempty"`
 	Skipped *Skipped `xml:"skipped,omitempty"`
-}
-
-func (t JUnitTestcase) IsSkipped() bool {
-    return t.Skipped != nil
-}
-
-func (t JUnitTestcase) HasFailed() bool {
-    return t.Failure != nil
 }

@@ -1,20 +1,15 @@
-<report name="Test Report" testsTotal="12" testsRun="10" testsSkipped="2">
-  <testSuiteReport name="TestAddingItems" timestamp="2026-05-01T15:23:42" testsTotal="1" testsRun="1" testsSkipped="0">
-    <testCaseReport name="testTodo()" result="passed"></testCaseReport>
-  </testSuiteReport>
-  <testSuiteReport name="TestCopy" timestamp="2026-05-01T15:23:42" testsTotal="4" testsRun="3" testsSkipped="1">
-    <testCaseReport name="testCopy()" result="passed"></testCaseReport>
-    <testCaseReport name="testDisabled()" result="skipped"></testCaseReport>
-    <testCaseReport name="testEquality()" result="passed"></testCaseReport>
-  </testSuiteReport>
-  <testSuiteReport name="TestRemovingItems" timestamp="2026-05-01T15:23:42" testsTotal="2" testsRun="2" testsSkipped="0">
-    <testCaseReport name="testTodo()" result="passed"></testCaseReport>
-    <testCaseReport name="testPositive()" result="failed"></testCaseReport>
-  </testSuiteReport>
-  <testSuiteReport name="pytest" timestamp="2026-05-12T13:36:20.355444+02:00" testsTotal="5" testsRun="4" testsSkipped="1">
-    <testCaseReport name="test_add_item" result="passed"></testCaseReport>
-    <testCaseReport name="test_removing_items" result="passed"></testCaseReport>
-    <testCaseReport name="test_skipping" result="skipped"></testCaseReport>
-    <testCaseReport name="test_copy" result="passed"></testCaseReport>
-  </testSuiteReport>
-</report>
+<Testsuites>
+  <testsuites name="pytest">
+    <testcase classname="test.test_identity" name="test_copy"
+      qualifiedName="test/test_identity.py::test_copy" result="passed"></testcase>
+    <testcase classname="test.test_simple" name="test_add_item"
+      qualifiedName="test/test_simple.py::test_add_item" result="passed"></testcase>
+    <testcase classname="test.test_simple" name="test_removing_items"
+      qualifiedName="test/test_simple.py::test_removing_items" result="passed"></testcase>
+    <testcase classname="test.test_simple" name="test_skipping"
+      qualifiedName="test/test_simple.py::test_skipping" result="skipped">
+      <skipped
+        message="this test will be skipped, to see how pytest handles skipped tests in JUnit XML reports"></skipped>
+    </testcase>
+  </testsuites>
+</Testsuites>

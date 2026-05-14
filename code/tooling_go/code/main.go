@@ -10,24 +10,24 @@ import dt "github.com/Zip-creations/optimize_CI_deterministic_builds/code/toolin
 
 func main() {
 	// Read all existing tests from the user-configured script
-	output, err := RunTestDiscoveryScript("examples/sample_find.sh")  // TODO: Read from config.json
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(output, "\n")  // Debug
-
-	// Read all tests in the JUnit XML output of the last run (if existing)
-	allSuites, err := ReadJUnitTestSuites("./examples/jUnit_XML")  // TODO: Read from config.json
+	allSuites, err := RunTestDiscoveryScript("examples/sample_find.sh")  // TODO: Read from config.json
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	fmt.Println(allSuites, "\n")  // Debug
 
-	// report := CreateReport("Test Report", allSuites)
-	// WriteXMLToFile(report, "./out/report.xml")
-	// fmt.Println("Successfully created report: \n", report)  // Debug
+	// Read all tests in the JUnit XML output of the last run (if existing)
+	allSuitesJUnit, err := ReadJUnitTestSuites("./examples/jUnit_XML")  // TODO: Read from config.json
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(allSuitesJUnit, "\n")  // Debug
+
+	report := MatchTests(allSuites, allSuitesJUnit)
+	WriteXMLToFile(report, "./out/report.xml")
+	fmt.Println("Successfully created report: \n", report)  // Debug
 }
 
 func RunTestDiscoveryScript(path string) (dt.DiscoveryTestsuite, error) {
@@ -98,9 +98,67 @@ func filterForXML(files []os.DirEntry) []os.DirEntry {
 	return xmlFiles
 }
 
-// ~~~~~~~~~
+func MatchTests(discoverySuite dt.DiscoveryTestsuite, junitSuites dt.JUnitTestsuites) dt.Testsuites {
+	var matchedSuites dt.Testsuites
+	for _, testcaseXML := range discoverySuite.DiscoveryTestcases {
+		testcase := dt.Testcase{
+			Classname: testcaseXML.Classname,
+			Name: testcaseXML.Name,
+			QualifiedName: testcaseXML.QualifiedName,
+		}
+		found := false
+		for _, junitSuite := range junitSuites.Testsuites {
+			for _, junitTestcase := range junitSuite.Testcases {
+				if testcaseXML.Name == junitTestcase.Name && testcaseXML.Classname == junitTestcase.Classname {
+					testcase.Failure = junitTestcase.Failure
+					testcase.Skipped = junitTestcase.Skipped
+					if testcase.Skipped != nil {
+						testcase.Result = dt.StatusSkipped
+					} else if testcase.Failure != nil {
+						testcase.Result = dt.StatusFailed
+					} else {
+						testcase.Result = dt.StatusPassed
+					}
+					suit := FindTestsuiteByName(matchedSuites.Testsuites, junitSuite.Name)
+					if suit == nil {
+						matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{
+							Name: junitSuite.Name,
+						})
+						suit = &matchedSuites.Testsuites[len(matchedSuites.Testsuites)-1]
+					}
+					suit.Testcases = append(suit.Testcases, testcase)
+					found = true
+					break
+				}
+			}
+			if found {break}
+		}
+		if !found {
+			testcase.Result = dt.StatusDidNotRan
 
-func WriteXMLToFile(report Report, filePath string) error {
+			suit := FindTestsuiteByName(matchedSuites.Testsuites, "unknown")
+			if suit == nil {
+				matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{
+					Name: "unknown",
+				})
+				suit = &matchedSuites.Testsuites[len(matchedSuites.Testsuites)-1]
+			}
+			suit.Testcases = append(suit.Testcases, testcase)
+		}
+	}
+	return matchedSuites
+}
+
+func FindTestsuiteByName(suites []dt.Testsuite, name string) *dt.Testsuite {
+	for i := range suites {
+		if suites[i].Name == name {
+			return &suites[i]
+		}
+	}
+	return nil
+}
+
+func WriteXMLToFile(report dt.Testsuites, filePath string) error {
 	data, err := xml.MarshalIndent(report, "", "  ")
 	if err != nil {
 		return fmt.Errorf("Error while marshalling Report XML:\n %w", err)
