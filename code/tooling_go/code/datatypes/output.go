@@ -24,9 +24,9 @@ const (
     StatusPassed  TestStatus = "passed"
     StatusFailed  TestStatus = "failed"
     StatusSkipped TestStatus = "skipped"
-	StatusDidNotRan TestStatus = "didNotRan"
+	StatusNotExecuted TestStatus = "notExecuted"
 )
 
 func (t Testcase) hasRun() bool {
-    return t.Result != "didNotRan"
+    return t.Result != "notExecuted"
 }

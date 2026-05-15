@@ -109,16 +109,14 @@ func MatchTests(discoverySuite dt.DiscoveryTestsuite, junitSuites dt.JUnitTestsu
 					testcase.Skipped = junitTestcase.Skipped
 					if testcase.Skipped != nil {
 						testcase.Result = dt.StatusSkipped
-					} else if testcase.Failure != nil {
+					} else if testcase.Failure != nil {  // A test can't have been failed and skipped at the same time
 						testcase.Result = dt.StatusFailed
 					} else {
 						testcase.Result = dt.StatusPassed
 					}
 					suit := FindTestsuiteByName(matchedSuites.Testsuites, junitSuite.Name)
 					if suit == nil {
-						matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{
-							Name: junitSuite.Name,
-						})
+						matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{Name: junitSuite.Name,})
 						suit = &matchedSuites.Testsuites[len(matchedSuites.Testsuites)-1]
 					}
 					suit.Testcases = append(suit.Testcases, testcase)
@@ -128,13 +126,11 @@ func MatchTests(discoverySuite dt.DiscoveryTestsuite, junitSuites dt.JUnitTestsu
 			if found {break}
 		}
 		if !found {
-			testcase.Result = dt.StatusDidNotRan
-
-			suit := FindTestsuiteByName(matchedSuites.Testsuites, "unknown")
+			testcase.Result = dt.StatusNotExecuted
+			// Group all tests that have not been executed
+			suit := FindTestsuiteByName(matchedSuites.Testsuites, "Not executed")
 			if suit == nil {
-				matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{
-					Name: "unknown",
-				})
+				matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{Name: "Not executed",})
 				suit = &matchedSuites.Testsuites[len(matchedSuites.Testsuites)-1]
 			}
 			suit.Testcases = append(suit.Testcases, testcase)
