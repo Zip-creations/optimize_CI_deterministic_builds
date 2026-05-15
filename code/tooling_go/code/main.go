@@ -74,12 +74,12 @@ func ReadJUnitTestSuites(path string) (dt.JUnitTestsuites, error) {
 		return allSuites, fmt.Errorf("Error reading directory:\n %s\n %w", path, err)
 	}
 	for _, filePath := range content {
-		testSuit, err := ReadJUnitTestSuite(filePath)
+		testSuites, err := ReadJUnitTestSuite(filePath)
 		if err != nil {
 			fmt.Println(err)  // TODO: log error somehow
 			continue  // If one file is broken: skip and continue with the others
 		}
-		allSuites.Testsuites = append(allSuites.Testsuites, testSuit)
+		allSuites.Testsuites = append(allSuites.Testsuites, testSuites...)
 	}
 	return allSuites, nil
 }
@@ -105,21 +105,20 @@ func ReadDirRekursive(path string) ([]string, error) {
 	return allPaths, nil
 }
 
-func ReadJUnitTestSuite(filePath string) (dt.JUnitTestsuite, error) {
+func ReadJUnitTestSuite(filePath string) ([]dt.JUnitTestsuite, error) {
+	var testsuites dt.JUnitTestsuites
 	var testsuite dt.JUnitTestsuite
 	data, err := os.ReadFile(filePath)
 	if err != nil {
-		return testsuite, fmt.Errorf("Error while reading file:\n %s\n %w", filePath, err)
+		return nil, fmt.Errorf("error while reading file:\n %s\n %w", filePath, err)
 	}
-	return XMLtoJUnitTestSuite(data, &testsuite)
-}
-
-func XMLtoJUnitTestSuite(data []byte, suite *dt.JUnitTestsuite) (dt.JUnitTestsuite, error) {
-	err := xml.Unmarshal(data, suite)
-	if err != nil {
-		return *suite, fmt.Errorf("Error while unmarshalling TestSuite XML:\n %w", err)
+	if err := xml.Unmarshal(data, &testsuite); err == nil {
+		return []dt.JUnitTestsuite{testsuite}, nil
 	}
-	return *suite, err
+	if err := xml.Unmarshal(data, &testsuites); err == nil {
+		return testsuites.Testsuites, nil
+	}
+	return testsuites.Testsuites, nil
 }
 
 func filterForXML(files []os.DirEntry) []os.DirEntry {
@@ -168,9 +167,10 @@ func MatchTests(discoverySuite dt.DiscoveryTestsuite, junitSuites dt.JUnitTestsu
 		if !found {
 			testcase.Result = dt.StatusNotExecuted
 			// Group all tests that have not been executed
-			suit := FindTestsuiteByName(matchedSuites.Testsuites, "Not executed")
+			neName := "not executed"
+			suit := FindTestsuiteByName(matchedSuites.Testsuites, neName)
 			if suit == nil {
-				matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{Name: "Not executed",})
+				matchedSuites.Testsuites = append(matchedSuites.Testsuites, dt.Testsuite{Name: neName,})
 				suit = &matchedSuites.Testsuites[len(matchedSuites.Testsuites)-1]
 			}
 			suit.Testcases = append(suit.Testcases, testcase)

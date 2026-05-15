@@ -6,4 +6,6 @@ echo '    <testcase classname="test.test_identity" name="test_copy" qualifiedNam
 echo '    <testcase classname="test.test_simple" name="test_add_item" qualifiedName="test/test_simple.py::test_add_item"/>'
 echo '    <testcase classname="test.test_simple" name="test_removing_items" qualifiedName="test/test_simple.py::test_removing_items"/>'
 echo '    <testcase classname="test.test_simple" name="test_skipping" qualifiedName="test/test_simple.py::test_skipping"/>'
+echo '    <testcase classname="test.TestAddingItems" name="testTodo()" qualifiedName="test/test_simple.py::test_skipping"/>'
+echo '    <testcase classname="test.TestRemovingItems" name="testPositive()" qualifiedName="test/test_simple.py::test_skipping"/>'
 echo '</testsuite>'

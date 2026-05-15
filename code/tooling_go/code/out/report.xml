@@ -7,4 +7,8 @@
       <skipped message="this test will be skipped, to see how pytest handles skipped tests in JUnit XML reports"></skipped>
     </testcase>
   </testsuites>
+  <testsuites name="not executed">
+    <testcase classname="test.TestAddingItems" name="testTodo()" qualifiedName="test/test_simple.py::test_skipping" result="notExecuted"></testcase>
+    <testcase classname="test.TestRemovingItems" name="testPositive()" qualifiedName="test/test_simple.py::test_skipping" result="notExecuted"></testcase>
+  </testsuites>
 </Testsuites>
