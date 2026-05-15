@@ -1,4 +1,4 @@
-package datatypes
+package config
 
 
 type Config struct {

@@ -1,4 +1,6 @@
-package datatypes
+package xmlOutput
+
+import shared "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/shared"
 
 
 type Testsuites struct {
@@ -15,8 +17,8 @@ type Testcase struct {
 	Name string `xml:"name,attr,omitempty"`
 	QualifiedName string `xml:"qualifiedName,attr,omitempty"`
 	Result TestStatus `xml:"result,attr"`  // if status is failed or skipped, additional info is added
-	Failure *Failure `xml:"failure,omitempty"`
-	Skipped *Skipped `xml:"skipped,omitempty"`
+	Failure *shared.Failure `xml:"failure,omitempty"`
+	Skipped *shared.Skipped `xml:"skipped,omitempty"`
 }
 
 type TestStatus string

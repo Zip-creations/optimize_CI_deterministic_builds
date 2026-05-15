@@ -1,4 +1,6 @@
-package datatypes
+package jUnit
+
+import shared "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/shared"
 
 
 type JUnitTestsuites struct {
@@ -7,13 +9,12 @@ type JUnitTestsuites struct {
 
 type JUnitTestsuite struct {
 	Name      string     `xml:"name,attr"`
-	Timestamp string     `xml:"timestamp,attr,omitempty"`
 	Testcases []JUnitTestcase `xml:"testcase"`
 }
 
 type JUnitTestcase struct {
 	Classname string `xml:"classname,attr,omitempty"`
 	Name string `xml:"name,attr,omitempty"`
-	Failure *Failure `xml:"failure,omitempty"`
-	Skipped *Skipped `xml:"skipped,omitempty"`
+	Failure *shared.Failure `xml:"failure,omitempty"`
+	Skipped *shared.Skipped `xml:"skipped,omitempty"`
 }

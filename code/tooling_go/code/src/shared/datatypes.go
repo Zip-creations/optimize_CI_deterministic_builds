@@ -1,4 +1,4 @@
-package datatypes
+package shared
 
 
 type Failure struct {
