@@ -13,7 +13,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("config:\n", config, "\n")  // Debug
+	// fmt.Println("config:\n", config, "\n")  // Debug
 
 	// Read all existing tests from the user-configured script
 	allSuites, err := disc.RunTestDiscoveryScript(config.TestDiscoveryPath)
@@ -21,7 +21,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Suits from discovery:\n", allSuites, "\n")  // Debug
+	// fmt.Println("Suits from discovery:\n", allSuites, "\n")  // Debug
 
 	// Read all tests in the JUnit XML output of the last run (if existing)
 	allSuitesJUnit, err := junit.ReadJUnitTestSuites(config.JUnitXMLDirectory)
@@ -29,9 +29,9 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Suites from JUnit XML:\n", allSuitesJUnit, "\n")  // Debug
+	// fmt.Println("Suites from JUnit XML:\n", allSuitesJUnit, "\n")  // Debug
 
 	report := out.MatchTests(allSuites, allSuitesJUnit)
 	out.WriteXMLToFile(report, config.OutputPath)
-	fmt.Println("Successfully created report: \n", report)  // Debug
+	// fmt.Println("Successfully created report: \n", report)  // Debug
 }

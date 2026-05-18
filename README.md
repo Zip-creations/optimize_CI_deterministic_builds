@@ -5,5 +5,17 @@ This repository contains both the latex files for my bachelor thesis, as well as
 
 - Das Test-Framework ist in der Lage einzelne Tests aus einer Suite gezielt ausführen
 - Das Test-Framework benutzt JUnit XML als Ausgabeformat
-- Es existiert ein Script, das alle vorhandenen Testcases findet & in einem näher zu definierendem Format ausgibt
-- Es existiert ein zweites Script, dass das Format des ersten Scripts versteht, und ausgehend davon einzelne Tests gezielt ausführen kann
+- Es existiert ein Ordner, der alle von dem/den Testframeworks(s) erezugten JUnit-XML Dateien enthält
+- Es existiert ein Script, das alle vorhandenen Testcases findet & in einem spezifizierten XML Format ausgibt
+- Es wird eine Datei config.json im selben Verzeichnis wie die binary angelegt, nach diesem Format:
+```
+{
+    "testDiscoveryPath": {
+        "command": "path/to/sricp.sh",
+        "args": []
+    },
+    "jUnitXMLDirectory": "path/to/directory",
+    "outputPath": "./out/report.xml"
+}
+```
+<!-- - Es existiert ein zweites Script, dass das Format des ersten Scripts versteht, und ausgehend davon einzelne Tests gezielt ausführen kann -->
