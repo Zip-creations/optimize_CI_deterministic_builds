@@ -35,3 +35,9 @@ def test_removing_items():
 @pytest.mark.skip(reason="this test will be skipped, to see how pytest handles skipped tests in JUnit XML reports")
 def test_skipping():
     assert True
+
+def test_simple():
+    assert "foo" != "bar"
+
+def test_simple_two():
+    assert 1 + 1 == 2

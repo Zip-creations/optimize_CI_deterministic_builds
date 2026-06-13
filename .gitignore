@@ -8,6 +8,7 @@ result-*
 #vs code
 .vscode/
 .idea/
+*.code-workspace
 
 #scala
 target/

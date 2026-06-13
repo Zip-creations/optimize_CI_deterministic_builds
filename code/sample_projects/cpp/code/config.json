@@ -3,6 +3,6 @@
         "command": "make",
         "args": ["discover_gtest"]
     },
-    "jUnitXMLDirectory": "./test/out",
-    "outputPath": "./out/report.xml"
+    "jUnitXMLDirectory": "tests/out/gtest",
+    "outputPath": "tests/out/gtest/audit_gtest.xml"
 }

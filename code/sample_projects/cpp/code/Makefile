@@ -58,12 +58,11 @@ discover_catch: $(CATCH_BIN)
 	}'
 	@echo '</testsuite>'
 
+# settings for this command are used in config.json
 audit_gtest: test_gtest $(AUDITOR_BIN)
-	./$(AUDITOR_BIN) \
-		--disc "make discover_gtest" \
-		--junit tests/out/gtest \
-		--out tests/out/gtest/audit_gtest.xml
+	./$(AUDITOR_BIN)
 
+# overrides config.json settings
 audit_catch: test_catch $(AUDITOR_BIN)
 	./$(AUDITOR_BIN) \
 		--disc "make discover_catch" \

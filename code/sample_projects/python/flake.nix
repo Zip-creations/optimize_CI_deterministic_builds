@@ -17,6 +17,8 @@
       buildInputs = [
         (pkgs.python3.withPackages (ps: [
           ps.pytest
+          ps.pytest-tap
+          ps.pytest-json-report
         ]))
       ];
     };
