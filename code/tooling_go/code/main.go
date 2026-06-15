@@ -12,6 +12,7 @@ func main() {
 	modifiedDiscoveryPath := flag.String("disc", "", "override test discovery path")
 	modifiedJUnitXMLDirectory := flag.String("junit", "", "override junit xml directory path")
 	modifiedOutputPath := flag.String("out", "", "override output path")
+	// contentString := flag.String("c", "", "provide JUnit XML content")
 	flag.Parse()
 
 	// Read config
@@ -40,6 +41,13 @@ func main() {
 	if *modifiedOutputPath != "" {
 		outputPath = *modifiedOutputPath
 	}
+
+	content, err := junit.ReadGitNote("./examples/jUnit_XML/gitnoteExample.txt")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println("Content: ", content)
 
 	// Read all existing tests from the user-configured script
 	allSuites, err := disc.RunTestDiscoveryScript(discoveryCmd)

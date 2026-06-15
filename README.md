@@ -1,5 +1,5 @@
 # optimize_CI_deterministic_builds
-This repository contains the accompanying code of the practical implementation for my bachelor thesis.
+This repository contains the accompanying code of the practical implementation for my bachelor thesis (see [ this repository](https://github.com/Zip-creations/BA_latex)).
 
 Tool can be build with
 `go build -o testAuditor`

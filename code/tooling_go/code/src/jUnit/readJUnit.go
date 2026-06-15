@@ -3,9 +3,19 @@ package jUnit
 
 import "fmt"
 import "os"
+import "regexp"
 import "encoding/xml"
 import "path/filepath"
 
+func ReadGitNote(content string)(JUnitTestsuites, error) {
+	data, _ := os.ReadFile(content)
+	re := regexp.MustCompile(`(?:\r?\n\s*){2,}`)
+	parts := re.Split(string(data), -1)
+	for _, part := range parts {
+		fmt.Println("Part: ", part)
+	}
+	return ReadJUnitTestSuites("./examples/jUnit_XML")
+}
 
 func ReadJUnitTestSuites(path string) (JUnitTestsuites, error) {
 	var allSuites JUnitTestsuites
