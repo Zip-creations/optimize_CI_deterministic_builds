@@ -2,19 +2,17 @@ package jUnit
 
 
 import "fmt"
-import "os"
 import "regexp"
 import "encoding/xml"
 
 func ReadGitNote(content string)(JUnitTestsuites, error) {
-	data, _ := os.ReadFile(content)
 	// This asssumes one file is provided, with a number of Junit XMl files mashed into one file by gitnotes, separated by an empty line
-	// JUnit XML files CAN NOT include empty lines, since empty lines are used by gitnotes as default separator
+	// JUnit XML files CAN NOT include empty lines, since empty lines are used by gitnotes as default separator!
 	re := regexp.MustCompile(`\r?\n\r?\n`)
-	parts := re.Split(string(data), -1)
-	for _, part := range parts {
-		fmt.Println("Part: ", part)
-	}
+	parts := re.Split(content, -1)
+	// for _, part := range parts {
+	// 	fmt.Println("Part: ", part)
+	// }
 	return ReadJUnitTestSuites(parts)
 }
 
@@ -42,5 +40,5 @@ func ReadJUnitTestSuite(part string) ([]JUnitTestsuite, error) {
 	if marshalErr2 == nil {
 		return testsuites.Testsuites, nil
 	}
-	return testsuites.Testsuites, fmt.Errorf("Error while unmarshalling JUnit XML:\n %s\n %w\n %w", marshalErr1, marshalErr2)
+	return testsuites.Testsuites, fmt.Errorf("Error while unmarshalling JUnit XML:\n %w\n %w", marshalErr1, marshalErr2)
 }
