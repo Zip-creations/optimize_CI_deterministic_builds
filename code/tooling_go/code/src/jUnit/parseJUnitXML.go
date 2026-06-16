@@ -1,6 +1,5 @@
 package jUnit
 
-import shared "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/shared"
 import "encoding/xml"
 
 
@@ -18,6 +17,16 @@ type JUnitTestsuite struct {
 type JUnitTestcase struct {
 	Classname string `xml:"classname,attr,omitempty"`
 	Name string `xml:"name,attr,omitempty"`
-	Failure *shared.Failure `xml:"failure,omitempty"`
-	Skipped *shared.Skipped `xml:"skipped,omitempty"`
+	Failure *Failure `xml:"failure,omitempty"`
+	Skipped *Skipped `xml:"skipped,omitempty"`
+}
+
+type Failure struct {
+	Message string `xml:"message,attr"`
+	Type string `xml:"type,attr"`
+	Content string `xml:",chardata"`
+}
+
+type Skipped struct {
+	Message string `xml:"message,attr"`
 }
