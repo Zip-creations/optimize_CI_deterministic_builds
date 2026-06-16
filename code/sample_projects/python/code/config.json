@@ -3,5 +3,8 @@
         "command": "./testDiscovery.sh",
         "args": []
     },
-    "outputPath": "./test.sh"
+    "testExecutionPath": {
+        "command": "./test.sh",
+        "args": []
+    }
 }

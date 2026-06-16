@@ -111,6 +111,7 @@ func main() {
 
 	report := out.MatchTests(allSuites, allSuitesJUnit)
 	if len(report) == 0 {
+		fmt.Println("All discovered tests have already been executed")
 		return
 	}
 	executionErr := out.RunTestScript(executionCmd, report)

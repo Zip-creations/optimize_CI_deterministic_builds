@@ -3,7 +3,7 @@
         "command": "./examples/example_testDiscovery.sh",
         "args": []
     },
-    "TestExecutionPath": {
+    "testExecutionPath": {
         "command": "./examples/test.sh",
         "args": []
     }
