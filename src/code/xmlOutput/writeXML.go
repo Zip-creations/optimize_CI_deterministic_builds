@@ -3,7 +3,7 @@ package xmlOutput
 import "fmt"
 import "os"
 import "os/exec"
-import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/config"
+import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/config"
 
 
 func RunTestScript(command cfg.Command , qualifiedNames []string) ([]byte, error) {

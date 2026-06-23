@@ -3,7 +3,7 @@ package testDiscovery
 import "fmt"
 import "os/exec"
 import "encoding/xml"
-import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/config"
+import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/config"
 
 func RunTestDiscoveryScript(command cfg.Command) (DiscoveryTestsuite, error) {
 	out, err := exec.Command(command.Command, command.Args...).CombinedOutput()

@@ -1,7 +1,7 @@
 package xmlOutput
 
-import disc "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/testDiscovery"
-import junit "github.com/Zip-creations/optimize_CI_deterministic_builds/code/tooling_go/code/src/jUnit"
+import disc "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/testDiscovery"
+import junit "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/jUnit"
 
 
 func MatchTests(discoverySuite disc.DiscoveryTestsuite, junitSuites junit.JUnitTestsuites) []string {
