@@ -4,10 +4,10 @@ import "fmt"
 import "flag"
 import "strings"
 import "os"
-import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/config"
-import junit "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/jUnit"
-import disc "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/testDiscovery"
-import out "github.com/Zip-creations/optimize_CI_deterministic_builds/src/code/generateOutput"
+import cfg "github.com/Zip-creations/optimize_CI_deterministic_builds/src/internal/config"
+import junit "github.com/Zip-creations/optimize_CI_deterministic_builds/src/internal/jUnit"
+import disc "github.com/Zip-creations/optimize_CI_deterministic_builds/src/internal/testDiscovery"
+import out "github.com/Zip-creations/optimize_CI_deterministic_builds/src/internal/generateOutput"
 
 func main() {
 	dummyGitNote := `<?xml version="1.0" encoding="utf-8"?>

@@ -14,11 +14,11 @@
         pname = "testAuditor";
         version = "0.1.0";
 
-        src = ./.;
+        src = ./src;
 
         vendorHash = null;
 
-        subPackages = [ "./src" ];
+        subPackages = [ "cmd/testAuditor" ];
       };
 
       apps.${system}.default = {
@@ -29,6 +29,7 @@
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           pkgs.go
+          pkgs.gopls
         ];
       };
     };

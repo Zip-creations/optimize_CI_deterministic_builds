@@ -10,21 +10,7 @@ result-*
 .idea/
 *.code-workspace
 
-#scala
-target/
-.scala-build/
-.bsp/
-.metals/
-.bloop/
-*.class
-
 #python
 __pycache__/
 *.pyc
 .pytest_cache/
-
-#cpp
-build/
-
-#testAuditor
-testAuditor
